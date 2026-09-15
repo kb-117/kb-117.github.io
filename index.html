@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kibret Guesh Bahta — Full-Stack Developer</title>
+<meta name="description" content="Full-stack developer (MERN, Next.js) with remote work experience and a background in enterprise networking. Based in Addis Ababa, Ethiopia." />
+<style>
+  :root{
+    --bg:#f7f7f5;
+    --surface:#ffffff;
+    --text:#1a1a1a;
+    --text-muted:#5a5a5a;
+    --border:#e5e3de;
+    --accent:#2f6f4f;
+    --accent-contrast:#ffffff;
+    --tag-bg:#eef2ee;
+    --tag-text:#2f6f4f;
+    --shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#141414;
+      --surface:#1c1c1c;
+      --text:#f0efec;
+      --text-muted:#a8a49c;
+      --border:#302f2c;
+      --accent:#7fd1a4;
+      --accent-contrast:#0e1a13;
+      --tag-bg:#1e2a20;
+      --tag-text:#8fdcb0;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.35);
+    }
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:var(--accent); text-decoration:none; }
+  a:hover{ text-decoration:underline; }
+  .wrap{
+    max-width:840px;
+    margin:0 auto;
+    padding:0 20px;
+  }
+  header.hero{
+    padding:64px 0 40px;
+    border-bottom:1px solid var(--border);
+  }
+  .eyebrow{
+    font-size:13px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:600;
+    margin:0 0 12px;
+  }
+  h1{
+    font-size:clamp(28px, 5vw, 40px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .tagline{
+    font-size:18px;
+    color:var(--text-muted);
+    margin:0 0 20px;
+    max-width:60ch;
+  }
+  .meta-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 20px;
+    font-size:14px;
+    color:var(--text-muted);
+    margin-bottom:20px;
+  }
+  .links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:8px 16px;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:600;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+  }
+  .btn:hover{ text-decoration:none; border-color:var(--accent); }
+  .btn.primary{
+    background:var(--accent);
+    color:var(--accent-contrast);
+    border-color:var(--accent);
+  }
+  section{ padding:40px 0; border-bottom:1px solid var(--border); }
+  section:last-of-type{ border-bottom:none; }
+  h2{
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text-muted);
+    margin:0 0 20px;
+  }
+  .about p{ max-width:68ch; margin:0 0 14px; }
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:20px;
+  }
+  .skill-group h3{
+    font-size:15px;
+    margin:0 0 8px;
+  }
+  .skill-group p{
+    font-size:14px;
+    color:var(--text-muted);
+    margin:0;
+  }
+  .projects{ display:flex; flex-direction:column; gap:20px; }
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:22px 24px;
+    box-shadow:var(--shadow);
+  }
+  .card-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .card h3{ margin:0; font-size:17px; }
+  .card .role{ font-size:13px; color:var(--text-muted); }
+  .card p.desc{ margin:10px 0 14px; color:var(--text); }
+  .tags{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:8px; }
+  .tag{
+    font-size:12px;
+    background:var(--tag-bg);
+    color:var(--tag-text);
+    padding:3px 9px;
+    border-radius:999px;
+    font-weight:600;
+  }
+  .card-link{ font-size:13px; font-weight:600; }
+  ul.exp-list{ padding-left:18px; margin:8px 0 0; }
+  ul.exp-list li{ margin-bottom:6px; color:var(--text-muted); font-size:14px; }
+  .exp-item{ margin-bottom:24px; }
+  .exp-item h3{ margin:0; font-size:16px; }
+  .exp-item .exp-meta{ font-size:13px; color:var(--text-muted); margin-top:2px; }
+  footer{
+    padding:32px 0 60px;
+    color:var(--text-muted);
+    font-size:14px;
+  }
+  @media (max-width:600px){
+    header.hero{ padding:44px 0 32px; }
+    section{ padding:32px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Available for remote work</p>
+    <h1>Kibret Guesh Bahta</h1>
+    <p class="tagline">Full-stack developer (MERN, Next.js) with hands-on remote work experience and an enterprise networking background (Cisco CCNA). Based in Addis Ababa, Ethiopia — EAT, UTC+3.</p>
+    <div class="meta-row">
+      <span>📍 Addis Ababa, Ethiopia</span>
+      <span>🕒 EAT (UTC+3)</span>
+      <span>🎓 BSc Information Technology, 2026</span>
+    </div>
+    <div class="links">
+      <a class="btn primary" href="mailto:gueshkibret@gmail.com">Email me</a>
+      <a class="btn" href="https://github.com/kb-117">GitHub</a>
+    </div>
+  </header>
+
+  <section class="about">
+    <h2>About</h2>
+    <p>I build production web applications end to end — front to back,
+    deployment to post-launch fixes — and I've been doing it remotely for
+    a US-based digital agency since December 2025. Alongside that, I run
+    freelance/consulting engagements for clients I've mostly never met in
+    person: I own the whole lifecycle, from requirements gathering to
+    client handover.</p>
+    <p>Before development, I trained and worked in enterprise networking
+    (Cisco &amp; Huawei configuration, SolarWinds monitoring, the full
+    Cisco CCNA series), which gives me a working understanding of
+    infrastructure most front-end-focused developers don't have.</p>
+  </section>
+
+  <section class="skills">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h3>Full-stack development</h3>
+        <p>React, Next.js (App Router), Node.js, Express, NestJS, MongoDB, TypeScript</p>
+      </div>
+      <div class="skill-group">
+        <h3>Front-end &amp; SEO</h3>
+        <p>Tailwind CSS, GSAP, Radix UI/shadcn-style components, technical SEO (Open Graph, schema.org, sitemaps), responsive &amp; accessible UI</p>
+      </div>
+      <div class="skill-group">
+        <h3>Deployment &amp; infra</h3>
+        <p>Vercel, DNS/domain configuration, Git/GitHub workflows</p>
+      </div>
+      <div class="skill-group">
+        <h3>Networking</h3>
+        <p>Cisco CCNA (full series), Huawei device configuration, SolarWinds Orion NPM</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects">
+    <h2>Selected projects</h2>
+    <div class="projects">
+
+      <div class="card">
+        <div class="card-head">
+          <h3>Brana Biomedical — company website</h3>
+          <span class="role">Sole developer</span>
+        </div>
+        <div class="tags">
+          <span class="tag">Next.js 14</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">Tailwind</span>
+          <span class="tag">SEO</span>
+        </div>
+        <p class="desc">Public site for a Mekelle-based medical equipment
+        maintenance &amp; supply company serving hospitals and clinics
+        across Tigray and Afar. Built the full site, technical SEO
+        (structured data, OG images, sitemaps), fixed a production
+        DNS/SSL issue blocking domain verification, and fixed a mobile
+        accessibility bug in the nav drawer.</p>
+        <a class="card-link" href="https://www.branabiomedical.me" target="_blank" rel="noopener">View live site →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h3>Brana Biomedical — internal ERP system</h3>
+          <span class="role">Sole developer</span>
+        </div>
+        <div class="tags">
+          <span class="tag">MERN</span>
+        </div>
+        <p class="desc">Internal system for equipment stock management,
+        service/machine tracking, and hospital/clinic client registration
+        — replacing manual tracking for the company's day-to-day
+        operations.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h3>Dental clinic management system</h3>
+          <span class="role">Freelance, sole developer</span>
+        </div>
+        <div class="tags">
+          <span class="tag">MERN</span>
+        </div>
+        <p class="desc">Custom management system built for a dental
+        clinic client in Mekelle, delivered from requirements through
+        deployment.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h3>University SuperApp</h3>
+          <span class="role">Team lead — final year project</span>
+        </div>
+        <div class="tags">
+          <span class="tag">Team project</span>
+        </div>
+        <p class="desc">Led a student team designing and building a
+        proof-of-concept SuperApp proposing a governed university
+        platform architecture — owned sprint planning, task distribution,
+        and documentation across the full lifecycle.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h3>Food delivery platform</h3>
+          <span class="role">Team lead</span>
+        </div>
+        <div class="tags">
+          <span class="tag">Team project</span>
+        </div>
+        <p class="desc">Centralized platform concept integrating
+        restaurants, customers, and delivery services for the Mekelle
+        market — managed a student development team through design and
+        milestone delivery.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="experience">
+    <h2>Experience</h2>
+
+    <div class="exp-item">
+      <h3>Web Developer (Remote) — Tinova Agency</h3>
+      <div class="exp-meta">Maryland, USA · Dec 2025 – Present</div>
+      <ul class="exp-list">
+        <li>Build and maintain web applications for a US-based digital agency, fully remote.</li>
+        <li>Collaborate asynchronously with a distributed team across a multi-hour timezone gap.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <h3>Freelance Web Developer / IT Consultant — Self-employed</h3>
+      <div class="exp-meta">Mekelle, Ethiopia · Jan 2024 – Present</div>
+      <ul class="exp-list">
+        <li>IT consultant to Brana Biomedical Engineering &amp; Technology PLC — website, ERP system, and ongoing online presence.</li>
+        <li>Built a custom MERN management system for a dental clinic client.</li>
+        <li>Delivered full-cycle solutions for local businesses as the sole developer on each engagement.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <h3>Junior Network Engineer Intern — IE Network Solutions</h3>
+      <div class="exp-meta">Addis Ababa, Ethiopia · Sep 2025 – Jan 2026</div>
+      <ul class="exp-list">
+        <li>Monitored network performance with SolarWinds Orion NPM.</li>
+        <li>Assisted configuring enterprise Cisco and Huawei devices across client sites.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p>Kibret Guesh Bahta — gueshkibret@gmail.com — <a href="https://github.com/kb-117">github.com/kb-117</a></p>
+  </footer>
+</div>
+
+</body>
+</html>
