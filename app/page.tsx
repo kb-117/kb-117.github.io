@@ -248,57 +248,61 @@ function Nav() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-parchment/10 bg-plum/80 backdrop-blur">
-      <nav className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
-        <a
-          href="#top"
-          onClick={close}
-          className="font-display text-lg italic text-amber sm:text-xl"
-          aria-label="Kibret Guesh Bahta"
-        >
-          KB.
-        </a>
+    <>
+      <header className="sticky top-0 z-50 border-b border-parchment/10 bg-plum/80 backdrop-blur">
+        <nav className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
+          <a
+            href="#top"
+            onClick={close}
+            className="font-display text-lg italic text-amber sm:text-xl"
+            aria-label="Kibret Guesh Bahta"
+          >
+            KB.
+          </a>
 
-        <div className="hidden items-center gap-5 text-sm text-muted md:flex">
-          {NAV_LINKS.map((link) => (
+          <div className="hidden items-center gap-5 text-sm text-muted md:flex">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="link-underline hover:text-parchment"
+              >
+                {link.label}
+              </a>
+            ))}
             <a
-              key={link.href}
-              href={link.href}
+              href={LOMILAB}
+              target="_blank"
+              rel="noreferrer"
               className="link-underline hover:text-parchment"
             >
-              {link.label}
+              Lomilab ↗
             </a>
-          ))}
-          <a
-            href={LOMILAB}
-            target="_blank"
-            rel="noreferrer"
-            className="link-underline hover:text-parchment"
-          >
-            Lomilab ↗
-          </a>
-          <a
-            href={`mailto:${EMAIL}`}
-            className="rounded-full bg-parchment px-4 py-1.5 font-medium text-plum transition hover:bg-amber"
-          >
-            Contact
-          </a>
-        </div>
+            <a
+              href={`mailto:${EMAIL}`}
+              className="rounded-full bg-parchment px-4 py-1.5 font-medium text-plum transition hover:bg-amber"
+            >
+              Contact
+            </a>
+          </div>
 
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          aria-label="Open menu"
-          aria-expanded={open}
-          className="flex h-9 w-9 flex-col items-center justify-center gap-[5px] md:hidden"
-        >
-          <span className="h-0.5 w-5 rounded-full bg-parchment" />
-          <span className="h-0.5 w-5 rounded-full bg-parchment" />
-          <span className="h-0.5 w-5 rounded-full bg-parchment" />
-        </button>
-      </nav>
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={open}
+            className="flex h-9 w-9 flex-col items-center justify-center gap-[5px] md:hidden"
+          >
+            <span className="h-0.5 w-5 rounded-full bg-parchment" />
+            <span className="h-0.5 w-5 rounded-full bg-parchment" />
+            <span className="h-0.5 w-5 rounded-full bg-parchment" />
+          </button>
+        </nav>
+      </header>
 
-      {/* Backdrop */}
+      {/* Backdrop — rendered as a sibling of <header>, not a descendant, because
+          the header's backdrop-blur creates a containing block for fixed-position
+          descendants and would otherwise trap this to the header's own height */}
       <div
         aria-hidden
         onClick={close}
@@ -376,7 +380,7 @@ function Nav() {
           Contact
         </a>
       </div>
-    </header>
+    </>
   );
 }
 
