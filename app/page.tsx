@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -235,152 +235,53 @@ function WaveDivider() {
 }
 
 function Nav() {
-  const [open, setOpen] = useState(false);
-  const close = () => setOpen(false);
-
-  useEffect(() => {
-    if (!open) return;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [open]);
-
   return (
-    <>
-      <header className="sticky top-0 z-50 border-b border-parchment/10 bg-plum/80 backdrop-blur">
-        <nav className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
-          <a
-            href="#top"
-            onClick={close}
-            className="font-display text-lg italic text-amber sm:text-xl"
-            aria-label="Kibret Guesh Bahta"
-          >
-            KB.
-          </a>
+    <header className="sticky top-0 z-50 border-b border-parchment/10 bg-plum/80 backdrop-blur">
+      <nav className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
+        <a
+          href="#top"
+          className="font-display text-lg italic text-amber sm:text-xl"
+          aria-label="Kibret Guesh Bahta"
+        >
+          KB.
+        </a>
 
-          <div className="hidden items-center gap-5 text-sm text-muted md:flex">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="link-underline hover:text-parchment"
-              >
-                {link.label}
-              </a>
-            ))}
+        <div className="hidden items-center gap-5 text-sm text-muted md:flex">
+          {NAV_LINKS.map((link) => (
             <a
-              href={LOMILAB}
-              target="_blank"
-              rel="noreferrer"
+              key={link.href}
+              href={link.href}
               className="link-underline hover:text-parchment"
             >
-              Lomilab ↗
+              {link.label}
             </a>
-            <a
-              href={`mailto:${EMAIL}`}
-              className="rounded-full bg-parchment px-4 py-1.5 font-medium text-plum transition hover:bg-amber"
-            >
-              Contact
-            </a>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => setOpen(true)}
-            aria-label="Open menu"
-            aria-expanded={open}
-            className="flex h-9 w-9 flex-col items-center justify-center gap-[5px] md:hidden"
+          ))}
+          <a
+            href={LOMILAB}
+            target="_blank"
+            rel="noreferrer"
+            className="link-underline hover:text-parchment"
           >
-            <span className="h-0.5 w-5 rounded-full bg-parchment" />
-            <span className="h-0.5 w-5 rounded-full bg-parchment" />
-            <span className="h-0.5 w-5 rounded-full bg-parchment" />
-          </button>
-        </nav>
-      </header>
-
-      {/* Backdrop — rendered as a sibling of <header>, not a descendant, because
-          the header's backdrop-blur creates a containing block for fixed-position
-          descendants and would otherwise trap this to the header's own height */}
-      <div
-        aria-hidden
-        onClick={close}
-        className={`fixed inset-0 z-40 bg-plumDeep/70 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
-          open ? "opacity-100" : "pointer-events-none opacity-0"
-        }`}
-      />
-
-      {/* Off-canvas drawer */}
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-hidden={!open}
-        className={`fixed inset-y-0 right-0 z-50 flex w-[78%] max-w-xs flex-col border-l border-parchment/10 bg-plum px-6 py-5 shadow-2xl transition-transform duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:hidden ${
-          open ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <div className="flex items-center justify-between">
-          <span className="font-display text-lg italic text-amber">KB.</span>
-          <button
-            type="button"
-            onClick={close}
-            tabIndex={open ? 0 : -1}
-            aria-label="Close menu"
-            className="flex h-9 w-9 items-center justify-center rounded-full text-parchment transition hover:bg-parchment/10"
+            Lomilab ↗
+          </a>
+          <a
+            href={`mailto:${EMAIL}`}
+            className="rounded-full bg-parchment px-4 py-1.5 font-medium text-plum transition hover:bg-amber"
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M1 1L15 15M15 1L1 15"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-              />
-            </svg>
-          </button>
+            Contact
+          </a>
         </div>
 
-        <div className="mt-10 flex flex-col gap-1">
-          {[...NAV_LINKS, { href: LOMILAB, label: "Lomilab ↗" }].map(
-            (link, i) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={close}
-                tabIndex={open ? 0 : -1}
-                target={link.href === LOMILAB ? "_blank" : undefined}
-                rel={link.href === LOMILAB ? "noreferrer" : undefined}
-                style={{
-                  transitionDelay: open ? `${100 + i * 60}ms` : "0ms",
-                }}
-                className={`rounded-xl px-2 py-3 text-base text-parchment transition-all duration-300 hover:bg-parchment/5 hover:text-amber ${
-                  open
-                    ? "translate-x-0 opacity-100"
-                    : "translate-x-3 opacity-0"
-                }`}
-              >
-                {link.label}
-              </a>
-            )
-          )}
-        </div>
-
+        {/* Mobile: no hamburger/drawer — a single "Get in touch" action instead,
+            which also frees the hero to drop its own duplicate CTA */}
         <a
           href={`mailto:${EMAIL}`}
-          onClick={close}
-          tabIndex={open ? 0 : -1}
-          className="mt-auto rounded-full bg-parchment px-4 py-3 text-center font-medium text-plum transition hover:bg-amber"
+          className="rounded-full bg-parchment px-3.5 py-1.5 text-sm font-medium text-plum transition hover:bg-amber md:hidden"
         >
-          Contact
+          Get in touch
         </a>
-      </div>
-    </>
+      </nav>
+    </header>
   );
 }
 
@@ -452,20 +353,16 @@ function Hero() {
           and an enterprise networking background (Cisco CCNA). Based in Addis
           Ababa, Ethiopia. Open to any timezone.
         </p>
+        {/* Only 2 CTAs here — "Get in touch" now lives in the header (both
+            breakpoints), so this pair can use an inverted light/dark treatment
+            instead of one primary + n outlines */}
         <div className="mt-8 flex flex-col gap-2.5 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
-          <a
-            data-hero-cta
-            href={`mailto:${EMAIL}`}
-            className="rounded-full bg-parchment px-4 py-2.5 text-center text-xs font-medium text-plum transition hover:bg-amber sm:w-auto sm:px-5 sm:py-2.5 sm:text-sm"
-          >
-            Get in touch
-          </a>
           <a
             data-hero-cta
             href={GITHUB}
             target="_blank"
             rel="noreferrer"
-            className="rounded-full border border-parchment/20 px-4 py-2.5 text-center text-xs font-medium text-parchment transition hover:border-amber hover:text-amber sm:w-auto sm:px-5 sm:py-2.5 sm:text-sm"
+            className="rounded-full bg-parchment px-4 py-2.5 text-center text-xs font-medium text-plum transition hover:bg-amber sm:w-auto sm:px-5 sm:py-2.5 sm:text-sm"
           >
             GitHub
           </a>
@@ -474,7 +371,7 @@ function Hero() {
             href={LOMILAB}
             target="_blank"
             rel="noreferrer"
-            className="rounded-full border border-parchment/20 px-4 py-2.5 text-center text-xs font-medium text-parchment transition hover:border-teal hover:text-teal sm:w-auto sm:px-5 sm:py-2.5 sm:text-sm"
+            className="rounded-full border border-teal/40 bg-plumDeep px-4 py-2.5 text-center text-xs font-medium text-parchment transition hover:border-teal hover:text-teal sm:w-auto sm:px-5 sm:py-2.5 sm:text-sm"
           >
             Building under Lomilab ↗
           </a>
