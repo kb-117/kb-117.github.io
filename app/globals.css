@@ -36,14 +36,17 @@ body::before {
   @apply text-xs font-semibold uppercase tracking-[0.28em] text-amber;
 }
 
-/* Cut-corner card — a deliberate break from the rounded-rectangle default */
+/* Cut-corner card — a deliberate break from the rounded-rectangle default.
+   A light glass treatment (heavier blur + a hairline top highlight) instead
+   of a flat tinted panel. */
 .card {
-  @apply relative border border-parchment/10 bg-parchment/[0.045] backdrop-blur-sm transition-colors duration-300;
+  @apply relative border border-parchment/10 bg-parchment/[0.05] backdrop-blur-md transition-colors duration-300;
   clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
+  box-shadow: inset 0 1px 0 rgba(243, 233, 210, 0.07);
 }
 
 .card:hover {
-  @apply border-amber/30 bg-parchment/[0.07];
+  @apply border-amber/30 bg-parchment/[0.08];
 }
 
 .rail-amber {
@@ -135,5 +138,32 @@ body::before {
   .wave-glow-pulse {
     animation: none;
     opacity: 0.45;
+  }
+}
+
+/* Slow drift of the hero's radial-gradient glow (the "bg-dusk" background),
+   so the warm amber light isn't pinned in one spot — a subtle, continuous
+   loop rather than anything that draws the eye */
+.bg-dusk-animated {
+  background-size: 160% 160%;
+  animation: dusk-drift 26s ease-in-out infinite;
+}
+
+@keyframes dusk-drift {
+  0% {
+    background-position: 20% 10%;
+  }
+  50% {
+    background-position: 80% 55%;
+  }
+  100% {
+    background-position: 20% 10%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-dusk-animated {
+    animation: none;
+    background-position: 20% 10%;
   }
 }
