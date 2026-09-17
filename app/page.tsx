@@ -234,9 +234,27 @@ function WaveDivider() {
   );
 }
 
+function ArrowUpRight({ className = "h-3.5 w-3.5" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={className}
+    >
+      <path d="M7 7h10v10" />
+      <path d="M7 17 17 7" />
+    </svg>
+  );
+}
+
 function Nav() {
   return (
-    <header className="sticky top-0 z-50 border-b border-parchment/10 bg-plum/80 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-parchment/10 bg-plum/60 backdrop-blur-lg backdrop-saturate-150">
       <nav className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
         <a
           href="#top"
@@ -260,9 +278,10 @@ function Nav() {
             href={LOMILAB}
             target="_blank"
             rel="noreferrer"
-            className="link-underline hover:text-parchment"
+            className="link-underline inline-flex items-center gap-1 hover:text-parchment"
           >
-            Lomilab ↗
+            Lomilab
+            <ArrowUpRight className="h-3.5 w-3.5" />
           </a>
           <a
             href={`mailto:${EMAIL}`}
@@ -324,7 +343,7 @@ function Hero() {
     <section
       id="top"
       ref={rootRef}
-      className="relative isolate w-full overflow-hidden bg-dusk"
+      className="relative isolate w-full overflow-hidden bg-dusk bg-dusk-animated"
     >
       <div className="mx-auto max-w-4xl px-4 pb-20 pt-12 sm:px-6 sm:pb-28 sm:pt-24">
         <p data-hero-kicker className="section-heading">
@@ -371,9 +390,10 @@ function Hero() {
             href={LOMILAB}
             target="_blank"
             rel="noreferrer"
-            className="rounded-full border border-teal/40 bg-plumDeep px-4 py-2.5 text-center text-xs font-medium text-parchment transition hover:border-teal hover:text-teal sm:w-auto sm:px-5 sm:py-2.5 sm:text-sm"
+            className="inline-flex items-center justify-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-4 py-2.5 text-center text-xs font-medium text-parchment backdrop-blur-md transition hover:border-teal/60 hover:bg-white/15 hover:text-teal sm:w-auto sm:px-5 sm:py-2.5 sm:text-sm"
           >
-            Building under Lomilab ↗
+            Building under Lomilab
+            <ArrowUpRight className="h-3.5 w-3.5" />
           </a>
         </div>
       </div>
@@ -476,7 +496,8 @@ function Projects() {
                   rel="noreferrer"
                   className="link-underline mt-3 inline-flex w-fit items-center gap-1 text-xs font-medium text-amber sm:text-sm"
                 >
-                  {project.linkLabel} ↗
+                  {project.linkLabel}
+                  <ArrowUpRight className="h-3 w-3" />
                 </a>
               )}
             </div>
@@ -563,9 +584,10 @@ function SiteFooter() {
             href={LOMILAB}
             target="_blank"
             rel="noreferrer"
-            className="link-underline hover:text-parchment"
+            className="link-underline inline-flex items-center gap-1 hover:text-parchment"
           >
-            Lomilab ↗
+            Lomilab
+            <ArrowUpRight className="h-3 w-3" />
           </a>
         </div>
       </div>
