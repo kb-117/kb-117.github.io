@@ -302,9 +302,9 @@ function About() {
         freelance and consulting engagements end-to-end for clients I&apos;ve
         never worked with in person. I also build and operate independent
         products — a barbershop management app and a point-of-sale system —
-        under my own studio, Lomilab. Final-year IT student (GPA 3.93/4.00),
-        graduating 2026, with hands-on enterprise networking experience
-        (Cisco CCNA, Huawei, SolarWinds).
+        under my own studio, Lomilab. BSc in Information Technology (GPA
+        3.93/4.00, graduated June 2026), with hands-on enterprise networking
+        experience (Cisco CCNA, Huawei, SolarWinds).
       </p>
     </Reveal>
   );
