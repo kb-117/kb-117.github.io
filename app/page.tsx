@@ -238,6 +238,15 @@ function Nav() {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
 
+  useEffect(() => {
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
+
   return (
     <header className="sticky top-0 z-50 border-b border-parchment/10 bg-plum/80 backdrop-blur">
       <nav className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
@@ -278,62 +287,94 @@ function Nav() {
 
         <button
           type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-label={open ? "Close menu" : "Open menu"}
+          onClick={() => setOpen(true)}
+          aria-label="Open menu"
           aria-expanded={open}
           className="flex h-9 w-9 flex-col items-center justify-center gap-[5px] md:hidden"
         >
-          <span
-            className={`h-0.5 w-5 rounded-full bg-parchment transition-transform duration-300 ${
-              open ? "translate-y-[7px] rotate-45" : ""
-            }`}
-          />
-          <span
-            className={`h-0.5 w-5 rounded-full bg-parchment transition-opacity duration-200 ${
-              open ? "opacity-0" : ""
-            }`}
-          />
-          <span
-            className={`h-0.5 w-5 rounded-full bg-parchment transition-transform duration-300 ${
-              open ? "-translate-y-[7px] -rotate-45" : ""
-            }`}
-          />
+          <span className="h-0.5 w-5 rounded-full bg-parchment" />
+          <span className="h-0.5 w-5 rounded-full bg-parchment" />
+          <span className="h-0.5 w-5 rounded-full bg-parchment" />
         </button>
       </nav>
 
+      {/* Backdrop */}
       <div
-        className={`overflow-hidden border-parchment/10 transition-[max-height,opacity] duration-300 md:hidden ${
-          open ? "max-h-64 border-t opacity-100" : "max-h-0 opacity-0"
+        aria-hidden
+        onClick={close}
+        className={`fixed inset-0 z-40 bg-plumDeep/70 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+          open ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+      />
+
+      {/* Off-canvas drawer */}
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-hidden={!open}
+        className={`fixed inset-y-0 right-0 z-50 flex w-[78%] max-w-xs flex-col border-l border-parchment/10 bg-plum px-6 py-5 shadow-2xl transition-transform duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:hidden ${
+          open ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex flex-col gap-1 px-4 py-3 text-sm text-muted">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={close}
-              className="rounded-lg px-2 py-2.5 hover:bg-parchment/5 hover:text-parchment"
+        <div className="flex items-center justify-between">
+          <span className="font-display text-lg italic text-amber">KB.</span>
+          <button
+            type="button"
+            onClick={close}
+            tabIndex={open ? 0 : -1}
+            aria-label="Close menu"
+            className="flex h-9 w-9 items-center justify-center rounded-full text-parchment transition hover:bg-parchment/10"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              aria-hidden="true"
             >
-              {link.label}
-            </a>
-          ))}
-          <a
-            href={LOMILAB}
-            target="_blank"
-            rel="noreferrer"
-            onClick={close}
-            className="rounded-lg px-2 py-2.5 hover:bg-parchment/5 hover:text-parchment"
-          >
-            Lomilab ↗
-          </a>
-          <a
-            href={`mailto:${EMAIL}`}
-            onClick={close}
-            className="mt-1 rounded-full bg-parchment px-4 py-2.5 text-center font-medium text-plum transition hover:bg-amber"
-          >
-            Contact
-          </a>
+              <path
+                d="M1 1L15 15M15 1L1 15"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
         </div>
+
+        <div className="mt-10 flex flex-col gap-1">
+          {[...NAV_LINKS, { href: LOMILAB, label: "Lomilab ↗" }].map(
+            (link, i) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={close}
+                tabIndex={open ? 0 : -1}
+                target={link.href === LOMILAB ? "_blank" : undefined}
+                rel={link.href === LOMILAB ? "noreferrer" : undefined}
+                style={{
+                  transitionDelay: open ? `${100 + i * 60}ms` : "0ms",
+                }}
+                className={`rounded-xl px-2 py-3 text-base text-parchment transition-all duration-300 hover:bg-parchment/5 hover:text-amber ${
+                  open
+                    ? "translate-x-0 opacity-100"
+                    : "translate-x-3 opacity-0"
+                }`}
+              >
+                {link.label}
+              </a>
+            )
+          )}
+        </div>
+
+        <a
+          href={`mailto:${EMAIL}`}
+          onClick={close}
+          tabIndex={open ? 0 : -1}
+          className="mt-auto rounded-full bg-parchment px-4 py-3 text-center font-medium text-plum transition hover:bg-amber"
+        >
+          Contact
+        </a>
       </div>
     </header>
   );
@@ -380,12 +421,12 @@ function Hero() {
       ref={rootRef}
       className="relative isolate w-full overflow-hidden bg-dusk"
     >
-      <div className="mx-auto max-w-4xl px-4 pb-14 pt-10 sm:px-6 sm:pb-20 sm:pt-24">
+      <div className="mx-auto max-w-4xl px-4 pb-20 pt-12 sm:px-6 sm:pb-28 sm:pt-24">
         <p data-hero-kicker className="section-heading">
           Kibret Guesh Bahta · Full-stack developer, remote
         </p>
 
-        <div className="relative isolate mt-4 sm:mt-6">
+        <div className="relative isolate mt-5 sm:mt-6">
           <div
             aria-hidden
             className="absolute -inset-x-6 -inset-y-10 rounded-full bg-gradient-to-br from-amber via-vermillion to-teal opacity-50 blur-3xl"
@@ -400,18 +441,18 @@ function Hero() {
 
         <p
           data-hero-sub
-          className="mt-5 max-w-2xl text-base text-muted sm:mt-8 sm:text-lg"
+          className="mt-6 max-w-2xl text-base text-muted sm:mt-8 sm:text-lg"
         >
           I build full-stack products end to end — React/Next.js, Node.js,
           PostgreSQL/Prisma, and MongoDB — with hands-on remote work experience
           and an enterprise networking background (Cisco CCNA). Based in Addis
           Ababa, Ethiopia. Open to any timezone.
         </p>
-        <div className="mt-6 flex flex-wrap items-center gap-2 sm:mt-8 sm:gap-3">
+        <div className="mt-8 flex flex-col gap-2.5 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
           <a
             data-hero-cta
             href={`mailto:${EMAIL}`}
-            className="rounded-full bg-parchment px-4 py-2 text-xs font-medium text-plum transition hover:bg-amber sm:px-5 sm:py-2.5 sm:text-sm"
+            className="rounded-full bg-parchment px-4 py-2.5 text-center text-xs font-medium text-plum transition hover:bg-amber sm:w-auto sm:px-5 sm:py-2.5 sm:text-sm"
           >
             Get in touch
           </a>
@@ -420,7 +461,7 @@ function Hero() {
             href={GITHUB}
             target="_blank"
             rel="noreferrer"
-            className="rounded-full border border-parchment/20 px-4 py-2 text-xs font-medium text-parchment transition hover:border-amber hover:text-amber sm:px-5 sm:py-2.5 sm:text-sm"
+            className="rounded-full border border-parchment/20 px-4 py-2.5 text-center text-xs font-medium text-parchment transition hover:border-amber hover:text-amber sm:w-auto sm:px-5 sm:py-2.5 sm:text-sm"
           >
             GitHub
           </a>
@@ -429,12 +470,18 @@ function Hero() {
             href={LOMILAB}
             target="_blank"
             rel="noreferrer"
-            className="rounded-full border border-parchment/20 px-4 py-2 text-xs font-medium text-parchment transition hover:border-teal hover:text-teal sm:px-5 sm:py-2.5 sm:text-sm"
+            className="rounded-full border border-parchment/20 px-4 py-2.5 text-center text-xs font-medium text-parchment transition hover:border-teal hover:text-teal sm:w-auto sm:px-5 sm:py-2.5 sm:text-sm"
           >
             Building under Lomilab ↗
           </a>
         </div>
       </div>
+
+      {/* Smooth fade into the flat page background instead of a hard cutoff */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-16 bg-gradient-to-b from-transparent to-plum sm:h-24"
+      />
     </section>
   );
 }
@@ -541,38 +588,31 @@ function Projects() {
 
 function Experience() {
   return (
-    <section id="experience" className="relative w-full overflow-hidden">
-      <div aria-hidden className="sunrise-scene">
-        <div className="sunrise-sun" />
-        <div className="sunrise-hills" />
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
-        <Reveal>
-          <p className="section-heading">Experience</p>
-        </Reveal>
-        <div className="mt-6 space-y-6 sm:mt-8 sm:space-y-8">
-          {EXPERIENCE.map((job) => (
-            <Reveal key={job.role + job.org}>
-              <div className={`timeline-rail rail-${job.rail} pl-5 sm:pl-6`}>
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h3 className="text-sm font-medium text-parchment sm:text-base">
-                    {job.role}
-                  </h3>
-                  <span className="text-xs text-muted">{job.period}</span>
-                </div>
-                <p className={`text-xs sm:text-sm ${RAIL_TEXT[job.rail]}`}>
-                  {job.org}
-                </p>
-                <ul className="mt-3 list-disc space-y-1.5 pl-5 text-xs text-muted sm:text-sm">
-                  {job.points.map((point) => (
-                    <li key={point}>{point}</li>
-                  ))}
-                </ul>
+    <section id="experience" className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
+      <Reveal>
+        <p className="section-heading">Experience</p>
+      </Reveal>
+      <div className="mt-6 space-y-6 sm:mt-8 sm:space-y-8">
+        {EXPERIENCE.map((job) => (
+          <Reveal key={job.role + job.org}>
+            <div className={`timeline-rail rail-${job.rail} pl-5 sm:pl-6`}>
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 className="text-sm font-medium text-parchment sm:text-base">
+                  {job.role}
+                </h3>
+                <span className="text-xs text-muted">{job.period}</span>
               </div>
-            </Reveal>
-          ))}
-        </div>
+              <p className={`text-xs sm:text-sm ${RAIL_TEXT[job.rail]}`}>
+                {job.org}
+              </p>
+              <ul className="mt-3 list-disc space-y-1.5 pl-5 text-xs text-muted sm:text-sm">
+                {job.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+        ))}
       </div>
     </section>
   );
