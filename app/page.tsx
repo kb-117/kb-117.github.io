@@ -303,8 +303,8 @@ function About() {
         never worked with in person. I also build and operate independent
         products — a barbershop management app and a point-of-sale system —
         under my own studio, Lomilab. BSc in Information Technology (GPA
-        3.93/4.00, graduated June 2026), with hands-on enterprise networking
-        experience (Cisco CCNA, Huawei, SolarWinds).
+        3.93/4.00), with hands-on enterprise networking experience (Cisco
+        CCNA, Huawei, SolarWinds).
       </p>
     </Reveal>
   );
