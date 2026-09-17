@@ -93,7 +93,7 @@ const PROJECTS = [
     name: "Clinic management system",
     description:
       "Role-based management system for dental clinic clients, spanning clinical and administrative staff.",
-    stack: "Next.js, MongoDB, TypeScript",
+    stack: "Next.js, Express, MongoDB, TypeScript",
     link: "https://dental-clinic-system-ten.vercel.app",
     linkLabel: "View site",
   },
@@ -101,7 +101,7 @@ const PROJECTS = [
     name: "Barber shop management app",
     description:
       "Booking, POS, and financials for a barbershop, with automated notifications.",
-    stack: "Next.js, PostgreSQL, Prisma",
+    stack: "Next.js, Express, PostgreSQL, Prisma",
     link: "https://barber.lomilab.dev",
     linkLabel: "View site",
     lomilab: true,
@@ -110,7 +110,7 @@ const PROJECTS = [
     name: "Spice — point of sale",
     description:
       "Offline-first POS and inventory system for a retail spice business, with a dedicated desktop terminal.",
-    stack: "React, Vite, Capacitor, PostgreSQL",
+    stack: "React, Vite, Capacitor, Express, PostgreSQL",
     link: "https://spice.lomilab.dev",
     linkLabel: "View site",
     lomilab: true,
