@@ -129,7 +129,7 @@ const EXPERIENCE = [
   },
   {
     role: "Freelance Web Developer / IT Consultant",
-    org: "Self-Employed, Mekelle, Ethiopia",
+    org: "Self-Employed, Remote",
     period: "Jan 2024 – Present",
     rail: "teal",
     points: [
