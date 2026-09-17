@@ -11,23 +11,28 @@ if (typeof window !== "undefined") {
 const EMAIL = "gueshkibret@gmail.com";
 const GITHUB = "https://github.com/kb-117";
 const LOMILAB = "https://lomilab.dev";
+const TAGLINE = "Bringing You Tomorrow.";
 
 const SKILL_GROUPS = [
   {
     title: "Full-stack development",
     items: ["React", "Next.js", "Node.js", "Express", "NestJS", "TypeScript"],
+    rail: "amber",
   },
   {
     title: "Data & backend",
     items: ["PostgreSQL", "Prisma", "MongoDB", "REST APIs"],
+    rail: "teal",
   },
   {
     title: "Front-end & SEO",
     items: ["Tailwind CSS", "GSAP", "shadcn/ui", "Technical SEO"],
+    rail: "vermillion",
   },
   {
     title: "Desktop & mobile",
     items: ["Electron", "React Native", "Capacitor", "Offline-first / PWA"],
+    rail: "amber",
   },
   {
     title: "Agency & ops work",
@@ -37,12 +42,26 @@ const SKILL_GROUPS = [
       "Site migrations",
       "DNS / domain configuration",
     ],
+    rail: "teal",
   },
   {
     title: "Networking",
     items: ["Cisco & Huawei devices", "SolarWinds Orion NPM", "Cisco CCNA"],
+    rail: "vermillion",
   },
-];
+] as const;
+
+const RAIL_TEXT: Record<string, string> = {
+  amber: "text-amber",
+  teal: "text-teal",
+  vermillion: "text-vermillion",
+};
+
+const RAIL_CHIP: Record<string, string> = {
+  amber: "bg-amber/10 text-amber",
+  teal: "bg-teal/15 text-teal",
+  vermillion: "bg-vermillion/10 text-vermillion",
+};
 
 const PROJECTS = [
   {
@@ -85,18 +104,6 @@ const PROJECTS = [
     linkLabel: "View site",
     lomilab: true,
   },
-  {
-    name: "University SuperApp",
-    description:
-      "Final-year project — led a student team proposing a governed university platform architecture.",
-    stack: "React Native, Expo",
-  },
-  {
-    name: "Food delivery platform",
-    description:
-      "Led a student team conceptualizing a platform integrating restaurants, customers, and delivery.",
-    stack: "Concept / architecture",
-  },
 ];
 
 const EXPERIENCE = [
@@ -104,6 +111,7 @@ const EXPERIENCE = [
     role: "Web Developer (Remote)",
     org: "Tinova Agency, Maryland, USA",
     period: "Dec 2025 – Present",
+    rail: "amber",
     points: [
       "Handle WordPress development, CRM integrations, site migrations, and DNS/infrastructure work for a US-based digital agency's clients, fully remote.",
     ],
@@ -112,6 +120,7 @@ const EXPERIENCE = [
     role: "Freelance Web Developer / IT Consultant",
     org: "Self-Employed, Mekelle, Ethiopia",
     period: "Jan 2024 – Present",
+    rail: "teal",
     points: [
       "IT consultant for Brana Biomedical Engineering & Technology PLC: built their SEO-optimized company website and their internal stock & financial management system.",
       "Built clinic management systems for dental clinic clients.",
@@ -122,11 +131,12 @@ const EXPERIENCE = [
     role: "Junior Network Engineer Intern",
     org: "IE Network Solutions, Addis Ababa, Ethiopia",
     period: "Sep 2025 – Jan 2026",
+    rail: "vermillion",
     points: [
       "Monitored network performance and assisted configuring enterprise Cisco and Huawei devices across client sites.",
     ],
   },
-];
+] as const;
 
 function Reveal({
   children,
@@ -169,31 +179,42 @@ function Reveal({
   );
 }
 
+function WaveDivider() {
+  return <div aria-hidden className="wave-divider" />;
+}
+
 function Nav() {
   return (
-    <header className="sticky top-0 z-50 border-b border-black/5 bg-paper/80 backdrop-blur dark:border-white/5 dark:bg-ink/80">
+    <header className="sticky top-0 z-50 border-b border-parchment/10 bg-plum/80 backdrop-blur">
       <nav className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
-        <a href="#top" className="font-semibold tracking-tight">
-          Kibret Guesh Bahta
+        <a
+          href="#top"
+          className="font-display text-xl italic text-amber"
+          aria-label="Kibret Guesh Bahta"
+        >
+          KB.
         </a>
         <div className="flex items-center gap-5 text-sm text-muted">
-          <a href="#projects" className="hover:text-accent">
+          <a href="#projects" className="link-underline hover:text-parchment">
             Projects
           </a>
-          <a href="#experience" className="hover:text-accent">
+          <a
+            href="#experience"
+            className="link-underline hover:text-parchment"
+          >
             Experience
           </a>
           <a
             href={LOMILAB}
             target="_blank"
             rel="noreferrer"
-            className="hover:text-accent"
+            className="link-underline hover:text-parchment"
           >
             Lomilab ↗
           </a>
           <a
             href={`mailto:${EMAIL}`}
-            className="rounded-full bg-ink px-4 py-1.5 text-paper transition hover:bg-accent dark:bg-paper dark:text-ink"
+            className="rounded-full bg-parchment px-4 py-1.5 font-medium text-plum transition hover:bg-amber"
           >
             Contact
           </a>
@@ -217,15 +238,15 @@ function Hero() {
         )
         .fromTo(
           "[data-hero-title]",
-          { opacity: 0, y: 24 },
-          { opacity: 1, y: 0, duration: 0.8 },
+          { opacity: 0, y: 28 },
+          { opacity: 1, y: 0, duration: 0.9 },
           "-=0.35"
         )
         .fromTo(
           "[data-hero-sub]",
           { opacity: 0, y: 20 },
           { opacity: 1, y: 0, duration: 0.7 },
-          "-=0.45"
+          "-=0.5"
         )
         .fromTo(
           "[data-hero-cta]",
@@ -242,28 +263,36 @@ function Hero() {
     <section
       id="top"
       ref={rootRef}
-      className="mx-auto max-w-4xl px-6 pb-20 pt-16 sm:pt-24"
+      className="relative isolate mx-auto max-w-4xl overflow-hidden bg-dusk px-6 pb-20 pt-16 sm:pt-24"
     >
       <p data-hero-kicker className="section-heading">
-        Full-stack developer
+        Kibret Guesh Bahta · Full-stack developer, remote
       </p>
-      <h1
-        data-hero-title
-        className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl"
-      >
-        I build full-stack products, end to end.
-      </h1>
-      <p data-hero-sub className="mt-5 max-w-2xl text-lg text-muted">
-        React/Next.js, Node.js, PostgreSQL/Prisma, and MongoDB — with
-        hands-on remote work experience and an enterprise networking
-        background (Cisco CCNA). Based in Addis Ababa, Ethiopia — open to
-        any timezone.
+
+      <div className="relative isolate mt-6">
+        <div
+          aria-hidden
+          className="absolute -inset-x-6 -inset-y-10 rounded-full bg-gradient-to-br from-amber via-vermillion to-teal opacity-50 blur-3xl"
+        />
+        <h1
+          data-hero-title
+          className="relative font-display text-[clamp(2.75rem,9vw,6.5rem)] font-medium italic leading-[0.95] tracking-tight text-parchment mix-blend-difference"
+        >
+          {TAGLINE}
+        </h1>
+      </div>
+
+      <p data-hero-sub className="mt-8 max-w-2xl text-lg text-muted">
+        I build full-stack products end to end — React/Next.js, Node.js,
+        PostgreSQL/Prisma, and MongoDB — with hands-on remote work experience
+        and an enterprise networking background (Cisco CCNA). Based in Addis
+        Ababa, Ethiopia. Open to any timezone.
       </p>
       <div className="mt-8 flex flex-wrap items-center gap-3">
         <a
           data-hero-cta
           href={`mailto:${EMAIL}`}
-          className="rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-paper transition hover:bg-accent dark:bg-paper dark:text-ink"
+          className="rounded-full bg-parchment px-5 py-2.5 text-sm font-medium text-plum transition hover:bg-amber"
         >
           Get in touch
         </a>
@@ -272,7 +301,7 @@ function Hero() {
           href={GITHUB}
           target="_blank"
           rel="noreferrer"
-          className="rounded-full border border-black/10 px-5 py-2.5 text-sm font-medium transition hover:border-accent hover:text-accent dark:border-white/15"
+          className="rounded-full border border-parchment/20 px-5 py-2.5 text-sm font-medium text-parchment transition hover:border-amber hover:text-amber"
         >
           GitHub
         </a>
@@ -281,7 +310,7 @@ function Hero() {
           href={LOMILAB}
           target="_blank"
           rel="noreferrer"
-          className="rounded-full border border-black/10 px-5 py-2.5 text-sm font-medium transition hover:border-accent hover:text-accent dark:border-white/15"
+          className="rounded-full border border-parchment/20 px-5 py-2.5 text-sm font-medium text-parchment transition hover:border-teal hover:text-teal"
         >
           Building under Lomilab ↗
         </a>
@@ -306,6 +335,10 @@ function About() {
         3.93/4.00), with hands-on enterprise networking experience (Cisco
         CCNA, Huawei, SolarWinds).
       </p>
+      <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
+        That&apos;s the throughline, whatever the stack: figure out what
+        comes next, then ship it — bringing you tomorrow, today.
+      </p>
     </Reveal>
   );
 }
@@ -317,12 +350,14 @@ function Skills() {
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         {SKILL_GROUPS.map((group) => (
           <div key={group.title} className="card p-5">
-            <h3 className="font-medium">{group.title}</h3>
-            <ul className="mt-2 flex flex-wrap gap-1.5 text-sm text-muted">
+            <h3 className={`font-medium ${RAIL_TEXT[group.rail]}`}>
+              {group.title}
+            </h3>
+            <ul className="mt-3 flex flex-wrap gap-1.5 text-sm text-parchment">
               {group.items.map((item) => (
                 <li
                   key={item}
-                  className="rounded-full bg-black/5 px-2.5 py-1 dark:bg-white/10"
+                  className={`rounded-full px-2.5 py-1 ${RAIL_CHIP[group.rail]}`}
                 >
                   {item}
                 </li>
@@ -346,13 +381,13 @@ function Projects() {
           <Reveal key={project.name}>
             <div className="card flex h-full flex-col p-5">
               <div className="flex items-start justify-between gap-3">
-                <h3 className="font-medium">{project.name}</h3>
+                <h3 className="font-medium text-parchment">{project.name}</h3>
                 {project.lomilab && (
                   <a
                     href={LOMILAB}
                     target="_blank"
                     rel="noreferrer"
-                    className="shrink-0 rounded-full bg-accent/10 px-2 py-0.5 text-xs font-medium text-accent"
+                    className="shrink-0 rounded-full bg-teal/15 px-2 py-0.5 text-xs font-medium text-teal"
                   >
                     Lomilab
                   </a>
@@ -361,7 +396,7 @@ function Projects() {
               <p className="mt-2 flex-1 text-sm text-muted">
                 {project.description}
               </p>
-              <p className="mt-3 text-xs uppercase tracking-wide text-muted/80">
+              <p className="mt-3 text-xs uppercase tracking-wide text-muted/70">
                 {project.stack}
               </p>
               {project.link && (
@@ -369,7 +404,7 @@ function Projects() {
                   href={project.link}
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-3 inline-flex w-fit items-center gap-1 text-sm font-medium text-accent hover:underline"
+                  className="link-underline mt-3 inline-flex w-fit items-center gap-1 text-sm font-medium text-amber"
                 >
                   {project.linkLabel} ↗
                 </a>
@@ -388,15 +423,15 @@ function Experience() {
       <Reveal>
         <p className="section-heading">Experience</p>
       </Reveal>
-      <div className="mt-6 space-y-6">
+      <div className="mt-8 space-y-8">
         {EXPERIENCE.map((job) => (
           <Reveal key={job.role + job.org}>
-            <div className="card p-5">
+            <div className={`timeline-rail rail-${job.rail}`}>
               <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 className="font-medium">{job.role}</h3>
+                <h3 className="font-medium text-parchment">{job.role}</h3>
                 <span className="text-xs text-muted">{job.period}</span>
               </div>
-              <p className="text-sm text-muted">{job.org}</p>
+              <p className={`text-sm ${RAIL_TEXT[job.rail]}`}>{job.org}</p>
               <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-muted">
                 {job.points.map((point) => (
                   <li key={point}>{point}</li>
@@ -410,20 +445,43 @@ function Experience() {
   );
 }
 
+function CTA() {
+  return (
+    <Reveal className="mx-auto max-w-4xl px-6 py-14 text-center">
+      <h2 className="font-display text-2xl italic tracking-tight text-parchment sm:text-3xl">
+        Let&apos;s build what&apos;s next.
+      </h2>
+      <p className="mx-auto mt-3 max-w-md text-muted">
+        Tell me what you&apos;re trying to ship — I&apos;ll tell you what it
+        takes to get there.
+      </p>
+      <a
+        href={`mailto:${EMAIL}`}
+        className="mt-6 inline-flex rounded-full bg-parchment px-6 py-3 text-sm font-medium text-plum transition hover:bg-amber"
+      >
+        {EMAIL}
+      </a>
+    </Reveal>
+  );
+}
+
 function SiteFooter() {
   return (
-    <footer className="border-t border-black/5 dark:border-white/5">
+    <footer className="border-t border-parchment/10">
       <div className="mx-auto flex max-w-4xl flex-col gap-4 px-6 py-10 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
-        <p>© {new Date().getFullYear()} Kibret Guesh Bahta</p>
+        <p>
+          © {new Date().getFullYear()} Kibret Guesh Bahta
+          <span className="text-muted/60"> — {TAGLINE}</span>
+        </p>
         <div className="flex flex-wrap gap-4">
-          <a href={`mailto:${EMAIL}`} className="hover:text-accent">
+          <a href={`mailto:${EMAIL}`} className="link-underline hover:text-parchment">
             {EMAIL}
           </a>
           <a
             href={GITHUB}
             target="_blank"
             rel="noreferrer"
-            className="hover:text-accent"
+            className="link-underline hover:text-parchment"
           >
             GitHub
           </a>
@@ -431,7 +489,7 @@ function SiteFooter() {
             href={LOMILAB}
             target="_blank"
             rel="noreferrer"
-            className="hover:text-accent"
+            className="link-underline hover:text-parchment"
           >
             Lomilab ↗
           </a>
@@ -446,10 +504,12 @@ export default function Home() {
     <main>
       <Nav />
       <Hero />
+      <WaveDivider />
       <About />
       <Skills />
       <Projects />
       <Experience />
+      <CTA />
       <SiteFooter />
     </main>
   );
